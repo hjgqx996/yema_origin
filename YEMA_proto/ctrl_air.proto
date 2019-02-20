@@ -1,0 +1,103 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlAirBean";
+
+// protoc.exe --java_out=./ ctrl_air.proto
+
+import "ctrl_common_param_tbox.proto";
+/**
+ * 空调控制消息(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlAirMessage {
+    /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+      * 空调控制信息
+      * Bit: 0-一键除霜
+      *      1-最大制冷
+      *      2-最大制热
+      *      3-负离子
+      *      4-座舱清洁
+      *      5-全自动
+      *      6-空气净化
+      *      7-AC开关
+      * 64              56              48              40              32              24              16              8             0
+      * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      */
+    optional CtrlCommonInfo air_ctrl_info = 2;
+    /**
+     * 状态信息
+     */
+    optional AirStateInfo air_state_info = 4;
+}
+
+/**
+ * 空调状态信息
+ * Bit: 0-一键除霜
+ *       1-最大制冷
+ *       2-最大制热
+ *       3-负离子
+ *       4-座舱清洁
+ *       5-全自动
+ *       6-空气净化
+ *       7-AC开关
+ * 64              56              48              40              32              24              16              8             0
+ * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ */
+message AirStateInfo{
+   /**
+    * AC状态
+    * 0x1: active
+    * 0x2: Inactive
+    * 0xFF: 无效
+    */
+    optional int32 ac = 1;
+   /**
+    * PTC状态
+    * 0x1: active
+    * 0x2: Inactive
+    * 0xFF: 无效
+    */
+    optional int32 ptc = 2;
+   /**
+    * PTC状态
+    * 0x00: 关闭
+    * 0x01-0x04风速等级
+    * 0xFF: 无效
+    */
+    optional int32 wind_level = 3;
+   /**
+    * 吹风模式
+    * 0x1: face
+    * 0x2: foot
+    * 0x3: face&foot
+    * 0xFF: 无效
+    */
+    optional int32 blower_mode = 4;
+   /**
+    * 循环模式
+    * 0x1: 内循环
+    * 0x2: 外循环
+    * 0xFF: 无效
+    */
+    optional int32 cycle_mode = 5;
+   /**
+    * 前除霜
+    * 0x1: active
+    * 0x2: Inactive
+    * 0xFF: 无效
+    */
+    optional int32 pre_defrosting = 6;
+   /**
+    * 后除霜
+    * 0x1: active
+    * 0x2: Inactive
+    * 0xFF: 无效
+    */
+    optional int32 after_defrosting = 7;
+}

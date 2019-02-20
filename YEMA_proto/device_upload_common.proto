@@ -1,0 +1,16 @@
+syntax = "proto2";
+/**
+ * 信息上传共通
+ */
+message DeviceUploadCommonMessage {
+     /**
+     * 请求唯一标识
+     */
+    optional fixed64 request_id = 1;
+    /**
+     * 上传类别
+     * 0 - CAN 报文
+     * 1 - TBOX 日志
+     */
+    optional int32 upload_category = 2;
+}

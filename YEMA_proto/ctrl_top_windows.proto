@@ -1,0 +1,58 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlTopWindowsBean";
+
+// protoc.exe --java_out=./ ctrl_top_windows.proto
+
+import "ctrl_common_param_tbox.proto";
+/**
+ * 天窗控制消息(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlTopWindowsMessage {
+     /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+     /**
+      * 天窗控制信息
+      * Bit: 0-远程天窗开关
+      * 64              56              48              40              32              24              16              8             0
+      * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      */
+    optional CtrlCommonInfo top_windows_ctrl_info = 2;
+    /**
+     * 状态信息
+     */
+    optional TopWindowsStateInfo top_windows_state_info = 3;
+}
+
+/**
+ * 天窗状态信息
+ */
+message TopWindowsStateInfo {
+    /**
+     * Sunroof curtain status
+     * 0x1: Open
+     * 0x2: Closed
+     * 0xFF: 无效
+     */
+    optional int32 sunroof_curtain = 1;
+    /**
+     * Sunroof Glass status
+     * 0x1: Open
+     * 0x2: Closed
+     * 0xFF: 无效
+     */
+    optional int32 sunroof_glass = 2;
+    /**
+     * Sunroof Glass Possition
+     * 0x0: De-init   (未初始化)
+     * 0x1: c Pos   (起翘区域)
+     * 0x2: a Pos   (内藏滑动区域)
+     * 0x3: b pos    (全闭点)
+     * 0xFF: 无效
+     */
+    optional int32 sunroof_possition = 3;
+}

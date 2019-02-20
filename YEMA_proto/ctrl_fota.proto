@@ -1,0 +1,78 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option java_package = "com.mx.ota.message";
+option java_outer_classname = "CtrlFotaMessage";
+
+// protoc.exe --java_out=./  ctrl_fota.proto
+
+/**
+ * 车辆OTA升级(请求/应答)
+ * 应答时需要把填写"respCode"以确认执行状态
+ */
+message CtrlFotaData {
+    /**
+     * 终端类型
+     * 1 - APP
+     * 2 - TBOX
+     * 3 - TBOX上位机
+     * 4 - TBOX下位机
+     * 5 - TBOX上位机固件
+     * 6 - VCU
+     * 7 - MCU
+     * 8 - BMS
+     * 9 ...
+     */
+    required uint32 termType = 1;
+    /**
+     * 拨号点名称
+     */
+    optional string apnName = 2;
+    /**
+     * 拨号用户名
+     */
+    optional string username = 3;
+    /**
+     * 拨号密码
+     */
+    optional string password = 4;
+    /**
+     * 升级服务器地址
+     */
+    optional string svrUrl = 5;
+    /**
+     * 升级服务器端口
+     */
+    optional uint32 svrPort = 6;
+    /**
+     * 车载终端制造商ID
+     */
+    optional string manufacturerId = 7;
+    /**
+     * 硬件版本
+     */
+    optional string hardwareVersion = 8;
+    /**
+     * 固件版本
+     */
+    optional string firmwareVersion = 9;
+    /**
+     * 升级地址
+     */
+    optional string upgradePath = 10;
+    /**
+     * 超时时间（单位min）
+     */
+    optional uint32 timeout = 11;
+    /**
+     * 签名，证书签名byte[]转base64后的字符串
+     */
+    required string sign = 12;
+    /**
+     * 请求ID，终端需要根据请求ID上报程序执行状态
+     */
+    required string requestId = 13;
+    /**
+     * 应答状态码（100:成功;-100:失败;-101:参数缺失;）
+     */
+    optional int32 respCode = 14;
+}

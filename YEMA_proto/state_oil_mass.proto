@@ -1,0 +1,15 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean.state";
+option java_outer_classname = "StateOilMassBean";
+
+// protoc.exe --java_out=./ state_oil_mass.proto
+
+/**
+ * 油量状态
+*/
+message StateOilMassMessage {
+    /**
+     * 油量状态 0xFF:无法得到当前状态
+     */
+    optional double oil_mass = 1;
+}

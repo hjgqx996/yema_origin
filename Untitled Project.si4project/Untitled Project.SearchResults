@@ -1,0 +1,4 @@
+---- send_cmd Matches (3 in 2 files) ----
+HU.c line 634 : int send_cmd (int fd)
+HU_thread in HU.c : 			if (send_cmd(c_fd) ==0)
+HU.h line 134 : int send_cmd (int fd);

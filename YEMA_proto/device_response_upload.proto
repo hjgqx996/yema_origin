@@ -1,0 +1,28 @@
+syntax = "proto2";
+import "device_upload_common.proto";
+
+/**
+ * 响应信息
+ */
+message DeviceResponseUploadMessage {
+    /**
+     * 车机上传共同属性
+     */	
+    optional DeviceUploadCommonMessage device_upload_common = 1;
+    /**
+     * 结果状态 100：成功-100：失败-10001：发送信息失败
+     */
+    optional uint32 resp_code = 2;
+    /**
+     * 终端请求的文件名
+     */
+    optional string full_name = 4;
+    /**
+     * 上传所需参数，里面是json数据格式key，value的形式，键值对数量可能为多个。
+     */
+    optional string params = 6;
+    /**
+     * 上传地址(upyun)
+     */
+    optional string upload_url = 8;
+}

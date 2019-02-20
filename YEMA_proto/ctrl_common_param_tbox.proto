@@ -1,0 +1,38 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlCommonParamTboxBean";
+
+//protoc.exe --java_out=.\ ctrl_common_param_tbox.proto
+/**
+ * 车控请求共通参数
+ */
+message CtrlCommonParamTbox {
+    /**
+     * 请求唯一标识
+     */
+    optional fixed64 request_id = 1;
+    /**
+     * 延迟返回时间（单位：秒）
+     */
+    optional int32 delay_time = 2;
+}
+/**
+ * 车辆控制共通结构
+ */
+message CtrlCommonInfo{
+    /**
+     * 有效的控制项(0-无效; 1-有效)
+     * Bit: 同上
+     */
+    optional fixed64 valid = 1;
+    /**
+     * 控制结果(0-成功; 1-失败)
+     * Bit: 同上
+     */
+    optional fixed64 result = 2;
+    /**
+     * 开关状态(0-关; 1-开)
+     * Bit: 同上
+     */
+    optional fixed64 state = 4;
+}

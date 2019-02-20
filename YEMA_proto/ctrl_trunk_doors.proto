@@ -1,0 +1,60 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlTrunkDoorsBean";
+
+// protoc.exe --java_out=./ ctrl_trunk_doors.proto
+
+import "ctrl_common_param_tbox.proto";
+
+/**
+ * 后备箱控制消息(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlTrunkDoorsMessage{
+    /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+     * 后备箱控制信息
+     * Bit: 0-后备箱
+     * 64              56              48              40              32              24              16              8             0
+     * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     */
+    optional CtrlCommonInfo trunk_doors_ctrl_info = 2;
+    /**
+     * 状态信息
+     */
+    optional TrunkDoorsStateInfo trunk_doors_state_info = 4;
+}
+
+/**
+ * 后备箱状态信息
+ * Bit: 0-后备箱
+ * 64              56              48              40              32              24              16              8             0
+ * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ */
+message TrunkDoorsStateInfo{
+    /**
+     * 后备箱锁状态: 0-关;1-开
+     * Bit: 同上
+     */
+    optional fixed64 lock_on_off = 1;
+    /**
+     * 后备箱锁异常状态(0-无异常; 1-有异常 例如：获取当前状态失败)
+     * Bit: 同上
+     */
+    optional fixed64 lock_state_exception = 2;
+    /**
+     * 后备箱开关状态: 0-关;1-开
+     * Bit: 同上
+     */
+    optional fixed64 trunk_on_off = 4;
+    /**
+     * 后备箱开关异常状态(0-无异常; 1-有异常 例如：获取当前状态失败)
+     * Bit: 同上
+     */
+    optional fixed64 trunk_state_exception = 6;
+}

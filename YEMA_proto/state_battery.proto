@@ -1,0 +1,29 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean.state";
+option java_outer_classname = "StateBatteryBean";
+
+// protoc.exe --java_out=./ state_battery.proto
+
+/**
+ * 蓄电池信息
+ */
+message StateBatteryMessage {
+    /**
+     * 剩余电量
+     * 有效值范围0x00-0xFA(表示0-100%)最小单位0.4，0xFF:无效
+     */
+    optional int32 soc = 1;
+    /**
+     * 平均电耗
+     * 有效值范围0x00-0xFA(表示0-25kwh/100km)最小单位0.1，0xFF:无效
+     */
+    optional int32 avg = 2;
+    /**
+     * 充电状态 0x00：未充电 0x01：正在充电 0x02-已充满 0xFF:无法得到当前状态
+     */
+    optional int32 charge_state = 3;
+    /**
+     * 电压 0xFFFF:无法得到当前状态
+     */
+    optional int32 electric_voltage = 4;
+}

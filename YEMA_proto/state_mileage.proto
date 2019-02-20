@@ -1,0 +1,26 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean.state";
+option java_outer_classname = "StateMileageBean";
+
+// protoc.exe --java_out=./ state_mileage.proto
+
+/**
+ * 里程信息
+ */
+message StateMileageMessage {
+    /**
+     * 累计里程（总里程）
+     * 有效值范围0x00-0xFFFFFE(表示0-‭1677721.4‬km)最小单位0.1，0xFFFFFF:无效
+     */
+    optional int32 odo_mileage = 1;
+    /**
+     * 小计里程
+     * 有效值范围0x00-0xFFFFFE(表示0-‭1677721.4‬km)最小单位0.1，0xFFFFFF:无效
+     */
+    optional int32 trip_mileage = 2;
+    /**
+     * 续航里程
+     * 有效值范围0x00-0xFFE 最小单位0.1，0xFFFF:无效
+     */
+    optional int32 endurance_mileage = 3;
+}

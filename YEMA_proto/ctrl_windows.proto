@@ -1,0 +1,94 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlWindowsBean";
+
+// protoc.exe --java_out=./ ctrl_windows.proto
+
+import "ctrl_common_param_tbox.proto";
+
+enum WindowPos {
+    LEFT_FRONT_WINDOW = 0x01;
+    RIGHT_FRONT_WINDOW = 0x02;
+    RIGHT_BACK_WINDOW = 0x03;
+    LEFT_BACK_WINDOW = 0x04;
+}
+
+enum WindowStatus {
+    WINDOW_CLOSED = 0x0;
+    WINDOW_OPENED = 0x1;
+    STOPPED = 0x2;
+    AUTO_UP_MOVING = 0x3;
+    MANUAL_UP_MOVING = 0x4;
+    AUTO_DOWN_MOVING = 0x5;
+    MANUAL_DOWN_MOVING = 0x6;
+    STATE_EXCEPTION_STATUS = 0xFF;
+}
+
+/**
+ * 车窗控制消息(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlWindowsMessage {
+    /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+     * 控制信息
+     */
+    repeated WindowsCtrlInfo windows_ctrl_info = 2;
+    /**
+     * 状态信息
+     */
+    repeated WindowsStateInfo windows_state_info = 4;
+}
+
+/**
+ * 车窗控制信息
+ */
+message WindowsCtrlInfo {
+    /**
+     * 位置标识
+     */
+    optional WindowPos window_pos = 1;
+    /**
+     * 车窗开度值(有效值范围0x00-0x64 表示0-100%)
+     * 0:为全关
+     * 100:为全开
+     * 0xFF:无效    
+     */
+    optional uint32 window_opened_value = 2;
+    /**
+     * 车窗设定结果(0-成功; 1-失败)
+     */
+    optional int32 result = 3;
+}
+
+/**
+ * 车窗状态信息
+ */
+message WindowsStateInfo {
+    /**
+     * 位置标识
+     */
+    optional WindowPos window_pos = 1;
+    /**
+     * 门窗开度值
+     * 0为全关，100为全开
+     * 0xFF:无效    
+     */
+    optional uint32 window_opened_value = 2;
+    /**
+     * window status
+     * 0x0: Window closed
+     * 0x1: Window opened
+     * 0x2: stopped
+     * 0x3: Auto Up moving
+     * 0x4: Manual Up moving
+     * 0x5: Auto Down moving
+     * 0x6: Manual Down moving
+     * 0x7: Invalid
+     * 0xFF: 无效
+     */
+    optional WindowStatus window_status = 3;
+}

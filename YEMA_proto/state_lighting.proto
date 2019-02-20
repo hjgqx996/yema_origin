@@ -1,0 +1,35 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean.state";
+option java_outer_classname = "StateLightingBean";
+
+// protoc.exe --java_out=./ state_lighting.proto
+
+/**
+ * 车灯信息
+ */
+message StateLightingMessage {
+    /**
+     * 近光灯 0x01开 0x02关 0xFF:无法得到当前状态
+     */
+    optional int32 low_beam = 1;
+    /**
+     * 远光灯 0x01开 0x02关 0xFF:无法得到当前状态
+     */
+    optional int32 high_beam = 2;
+    /**
+     * 左转向灯 0x01开 0x02关 0xFF:无法得到当前状态
+     */
+    optional int32 left_cornering_lamp = 4;  
+    /**
+     * 右转向灯 0x01开 0x02关 0xFF:无法得到当前状态
+     */
+    optional int32 right_cornering_lamp = 6;
+    /**
+     * 轮廓灯 0x01开 0x02关 0xFF:无法得到当前状态
+     */
+    optional int32 clearance_light = 8;
+    /**
+     * 雾灯状态 0x01开 0x02关 0xFF:无法得到当前状态
+     */
+    optional int32 fog_light = 10;
+}

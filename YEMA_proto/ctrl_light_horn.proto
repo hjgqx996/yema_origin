@@ -1,0 +1,26 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlLightHornBean";
+
+// protoc.exe --java_out=./ ctrl_light_horn.proto
+
+import "ctrl_common_param_tbox.proto";
+
+/**
+ * 寻车控制消息(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlLightHornMessage {
+     /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+     * 寻车控制信息
+     * Bit: 0-远程一键寻车
+     * 64              56              48              40              32              24              16              8             0
+     * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     */
+    optional CtrlCommonInfo lighthorn_ctrl_info = 2;
+}

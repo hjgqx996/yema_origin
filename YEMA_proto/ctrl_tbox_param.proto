@@ -1,0 +1,146 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlTboxParamBean";
+
+// protoc.exe --java_out=./ ctrl_tbox_param.proto
+
+enum ModeType {
+    NORMAL = 0x00;
+    CAN_FILE_MODE= 0x01;
+    TBOX_FILE_MODE= 0x02;
+    SAMPLING_MODE= 0X03;
+}
+
+enum LogLevel {
+    LOG_ERROR = 0x00;
+    LOG_WARNING = 0x01;
+    LOG_INFO = 0x02;
+    LOG_DEBUG = 0x03;
+}
+
+
+/**
+ * 参数设定proto/查询消息返回proto
+ */
+message CtrlTboxParamMessage {
+    /**
+     * 配置项信息
+     */
+    optional ConfigInfo config_info = 1;
+    /**
+     * 版本信息
+     */
+    optional VersionInfo version_info = 2;
+    /**
+     * 参数操作信息
+     */
+    optional StateInfo state_info = 3;
+}
+
+/**
+ * 配置项信息
+ */
+message ConfigInfo {
+    /**
+     * 车载终端本地存储时间周期
+     */	
+    optional uint32 local_cycle  = 1;
+    /**
+     * 正常时，信息上报时间周期
+     */	  
+    optional uint32 report_cycle = 2;
+    /**
+     * 警报时，信息上报时间周期
+     */
+    optional uint32 alarm_cycle = 3;
+    /**
+    * 远程服务与管理平台域名
+    */
+    optional string enterprise_platform_url = 4;
+    /**
+     * 远程服务与管理平台端口
+     */
+    optional uint32 enterprise_platform_port = 5;
+    /**
+     * 公共平台域名
+     */
+    optional string public_platform_url = 6;
+    /**
+     * 公共平台端口
+     */
+    optional uint32 public_platform_port = 7;
+    /**
+     * 终端应答超时时间
+     */
+    optional uint32 tbox_timeout = 8;
+    /**
+     * 平台应答超时时间
+     */
+    optional uint32 platform_timeout = 9;
+    /**
+     * 连续三次登录失败后，到下一次等入的间隔时间
+     */	  
+    optional uint32 interval = 10;
+    /**
+     * 心跳周期
+     */
+    optional uint32 heartbeat_cycle = 11;
+    /**
+     * 模式
+     */
+    optional ModeType mode_type = 12;
+    /**
+     * 模式上传时间 格式为：UNIX时间戳
+     */
+    optional fixed64 mode_begin_time = 13;
+    /**
+     * 模式上传持续时间单位：分
+     */
+    optional uint32 mode_time_quantum = 14;
+    /**
+     * 日志输出级别
+     */
+    optional LogLevel log_level = 15;
+    /**
+      * 下线配置参数EOL
+      */
+    optional string offline_config_param = 16;
+    /**
+      * PEPS安全认证密钥ESK
+      */
+    optional string peps_security_auth_key = 17;
+	/**
+      * tbox的usb网络开关
+	  * 0 - 禁用
+      * 1 - 启用
+      */
+    optional uint32 tbox_usb_net_switch = 18;
+}
+
+/**
+ * 版本信息
+ */
+message VersionInfo {
+  /**
+   * 上位机版本号
+   */
+  optional string upper_ware_version = 1; 
+  /**
+   *  下位机版本号
+   */  
+  optional string lower_ware_version = 2;
+  /**
+   * 固件版本号
+   */  
+  optional string upper_firmware_version = 3;
+}
+
+/**
+ * 状态信息
+ */
+message StateInfo {
+  /**
+   * 是否处于抽样检测中
+   */	
+  optional bool sampling = 1;
+}

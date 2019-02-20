@@ -1,0 +1,117 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlAllStateBean";
+
+// protoc.exe --java_out=./ ctrl_all_state.proto
+
+
+import "ctrl_air.proto";
+import "ctrl_chair.proto";
+import "ctrl_charge.proto";
+import "ctrl_doors.proto";
+import "ctrl_ekey.proto";
+import "ctrl_electromotor.proto";
+import "ctrl_engine.proto";
+import "ctrl_light_horn.proto";
+import "ctrl_windows.proto";
+import "ctrl_private_information.proto";
+
+import "state_oil_mass.proto";
+import "state_battery.proto";
+import "state_lighting.proto";
+import "state_mileage.proto";
+import "state_tyre.proto";
+import "state_other.proto";
+
+import "ctrl_common_param_tbox.proto";
+import "ctrl_top_windows.proto";
+import "ctrl_trunk_doors.proto";
+import "ctrl_air_temperature.proto";
+
+/**
+ * 取得全部控制设备的状态
+ *   服务器->TBOX 请求时：只传"request_id"
+ *   TBOX->服务器 应答时：将请求的"request_id"传回，同时，各设备状态通过相应的"XxxxMessage"返回，各子Message内的"request_id"不要传
+ */
+message CtrlAllStateMessage {
+    /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+     * 空调控制消息
+     */
+    optional CtrlAirMessage air_message = 2;
+    /**
+     * 座椅控制消息
+     */
+    optional CtrlChairMessage chair_message= 3;
+    /**
+     * 充电控制消息
+     */
+    optional CtrlChargeMessage charge_message = 4;
+    /**
+     * 车门控制消息
+     */
+    optional CtrlDoorsMessage doors_message = 5;
+    /**
+     * 电子钥匙控制消息
+     */
+    optional CtrlEkeyMessage ekey_message= 6;
+    /**
+     * 电动机控制消息
+     */
+    optional CtrlElectromotorMessage electromotor_message = 7;
+    /**
+     * 发动机控制
+     */
+    optional CtrlEngineMessage engine_message = 8;
+    /**
+     * 寻车控制消息
+     */
+    optional CtrlLightHornMessage light_horn_message = 9;
+    /**
+     * 车窗控制消息
+     */
+    optional CtrlWindowsMessage windows_message = 10;
+    /**
+     * 油量状态
+     */
+    optional StateOilMassMessage oil_mass_state = 11;
+    /**
+     * 蓄电池信息
+     */
+    optional StateBatteryMessage battery_state = 12;
+    /**
+     * 车灯信息
+     */
+    optional StateLightingMessage lighting_state = 13;
+    /**
+     * 里程信息
+     */
+    optional StateMileageMessage mileage_state = 14;
+    /**
+     *  车胎状态
+     */
+    optional StateTyreMessage tyre_state = 15;
+    /**
+     *  其他状态
+     */
+    optional StateOtherMessage other_state = 16;
+    /**
+     *  屏幕保护
+     */
+    optional CtrlPrivateInformationMessage private_information_message = 17;
+    /**
+     *  天窗控制消息
+     */
+    optional CtrlTopWindowsMessage top_windows_message = 18;
+    /**
+     *  后备箱控制消息
+     */
+    optional CtrlTrunkDoorsMessage trunk_doors_message = 19;
+    /**
+     *  远程空调温度设定消息
+     */
+    optional CtrlAirTemperatureMessage air_temperature_message = 20;
+}

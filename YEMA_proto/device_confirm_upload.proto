@@ -1,0 +1,20 @@
+syntax = "proto2";
+import "device_upload_common.proto";
+
+/**
+ * 确认信息
+ */
+message DeviceConfirmUploadMessage {
+     /**
+     * 车机上传共同属性
+     */	
+    optional DeviceUploadCommonMessage device_upload_common = 1;
+    /**
+     * 返回值，200成功，其他值失败
+     */
+    optional uint32 code = 2;
+    /**
+     * 上传路径，例如：95555/2a9aef6aaa11a389/2016-07-14-13-30-28-image/abc.jpg
+     */
+    optional string url = 4;
+}

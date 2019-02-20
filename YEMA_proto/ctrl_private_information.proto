@@ -1,0 +1,43 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlPrivateInformationBean";
+
+// protoc.exe --java_out=./ ctrl_private_information.proto
+
+import "ctrl_common_param_tbox.proto";
+
+/**
+ * 屏幕保护(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlPrivateInformationMessage {
+     /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+     * 屏幕保护控制信息
+     * Bit: 0-远程中控屏保护锁
+     * 64              56              48              40              32              24              16              8             0
+     * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     */
+    optional CtrlCommonInfo private_info_ctrl_info = 2;
+    /**
+     * 状态信息
+     */
+    optional PrivateInfoStateInfo private_info_state_info = 3;
+}
+
+/**
+ * 屏幕保护状态信息
+ */
+message PrivateInfoStateInfo {
+    /**
+     * 远程中控屏保护状态
+     * 0x1: Valid（被保护，显示时间或保护界面点击界面时出现密码，密码设定在设置菜单中）
+     * 0x2: InValid
+     * 0xFF: 无效
+     */
+    optional int32 lock_state = 1;
+}

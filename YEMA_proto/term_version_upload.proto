@@ -1,0 +1,49 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option java_package = "com.mx.ota.message";
+option java_outer_classname = "TermVersionUploadMessage";
+
+// protoc.exe --java_out=./  term_version_upload.proto
+
+/**
+ * 终端固件版本查询(应答)
+ * 应答时需要把填写"respCode"以确认执行状态
+ */
+message TermVersionUploadData {
+    /**
+     * 固件版本信息列表
+     */
+    repeated TermVersionUpload termVersionUpload = 1;
+    /**
+     * 应答状态码（100:成功;-100:失败;-101:参数缺失;）
+     */
+    optional int32 respCode = 2;
+}
+
+message TermVersionUpload {
+    /**
+     * 终端类型
+     * 1 - APP
+     * 2 - TBOX
+     * 3 - TBOX上位机
+     * 4 - TBOX下位机
+     * 5 - TBOX上位机固件
+     * 6 - VCU
+     * 7 - MCU
+     * 8 - BMS
+     * 9 ...
+     */
+    required uint32 termType = 1;
+    /**
+     * 车载终端制造商ID
+     */
+    optional string manufacturerId = 2;
+    /**
+     * 硬件版本
+     */
+    optional string hardwareVersion = 3;
+    /**
+     * 固件版本
+     */
+    required string firmwareVersion = 4;
+}

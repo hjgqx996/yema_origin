@@ -1,0 +1,59 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlDiagnosisBean";
+
+// protoc.exe --java_out=./ ctrl_diagnosis.proto
+
+enum DiagnosisType {
+    DIAG_TYPE_ALL = 255;
+    DIAG_TYPE_AFS = 1;
+    DIAG_TYPE_SAS = 2;
+    DIAG_TYPE_APA = 3;
+    DIAG_TYPE_SRS = 4;
+    DIAG_TYPE_BCM = 5;
+    DIAG_TYPE_IC = 6;
+    DIAG_TYPE_PEPS = 7;
+    DIAG_TYPE_AC = 8;
+    DIAG_TYPE_TPMS = 9;
+    DIAG_TYPE_DVD = 10;
+    DIAG_TYPE_PRM = 11;
+    DIAG_TYPE_SCM = 12;
+    DIAG_TYPE_TBOX = 13;
+    DIAG_TYPE_NVS = 14;
+    DIAG_TYPE_HUD = 15;
+    DIAG_TYPE_AVM = 16;
+    DIAG_TYPE_LDW = 17;
+    DIAG_TYPE_BSD = 18;
+    DIAG_TYPE_DR = 19;
+    DIAG_TYPE_GW = 20;
+    DIAG_TYPE_AC_COMPRESSOR = 21;
+    DIAG_TYPE_MP5CP = 22;
+}
+
+/**
+ * 诊断
+ */
+message CtrlDiagnosisMessage {
+    /**
+     * 请求唯一标识
+     */
+    optional fixed64 request_id = 1;
+    /**
+     * 诊断类别信息
+     */
+    repeated DiagnosisTypeInfo diagnosis_type_info = 2;
+}
+
+/**
+ * 诊断类别信息
+ */
+message DiagnosisTypeInfo {
+    /**
+     * 类别标识
+     */
+    optional DiagnosisType diagnosis_type = 1;
+    /**
+     * 诊断CODE
+     */
+    repeated uint32 err_code = 2;
+}

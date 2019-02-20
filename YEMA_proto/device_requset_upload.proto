@@ -1,0 +1,28 @@
+syntax = "proto2";
+import "device_upload_common.proto";
+
+/**
+ * 请求信息
+ */
+message DeviceRequsetUploadMessage {
+    /**
+     * 车机上传共同属性
+     */	
+    optional DeviceUploadCommonMessage device_upload_common = 1;
+    /**
+     * 经度
+     */
+    optional double lon = 2;
+    /**
+     * 纬度
+     */
+    optional double lat = 4;
+    /**
+     * 记录上传时间，格式为：UNIX时间戳
+     */
+    optional fixed64 time = 6;
+    /**
+     * 要上传的文件名,文件名只能包含数字、英文字母、下划线
+     */
+    optional string file_name = 8;
+}

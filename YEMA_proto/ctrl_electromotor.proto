@@ -1,0 +1,43 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlElectromotorBean";
+
+//protoc.exe --java_out=./ ctrl_electromotor.proto
+
+import "ctrl_common_param_tbox.proto";
+
+/**
+ * 电动机控制消息(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlElectromotorMessage {
+     /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+     * 电动机控制信息
+     * Bit: 0-上下电状态
+     * 64              56              48              40              32              24              16              8             0
+     * 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     */
+    optional CtrlCommonInfo electromotor_ctrl_info = 2;
+    /**
+     * 状态信息
+     */
+    optional ElectromotorStateInfo electromotor_state_info = 3;
+}
+
+/**
+ * 电动机状态信息
+ */
+message ElectromotorStateInfo {
+   /**
+    * 上下电状态
+    * 0x1: ON
+    * 0x2: OFF
+    * 0xFF: 无效
+    */
+    optional int32 electromotor_on_off = 1;
+}

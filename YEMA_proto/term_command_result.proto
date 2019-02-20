@@ -1,0 +1,44 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option java_package = "com.mx.ota.message";
+option java_outer_classname = "TermCommandResultMessage";
+
+// protoc.exe --java_out=./  term_command_result.proto
+
+/**
+ * 终端命令执行结果上报(请求/应答)
+ * 应答时需要把填写"respCode"以确认执行状态
+ */
+message TermCommandResult {
+    /**
+     * 终端类型
+     * 1 - APP
+     * 2 - TBOX
+     * 3 - TBOX上位机
+     * 4 - TBOX下位机
+     * 5 - TBOX上位机固件
+     * 6 - VCU
+     * 7 - MCU
+     * 8 - BMS
+     * 9 ...
+     */
+    required uint32 termType = 1;
+    /**
+     * 请求ID
+     */
+    required string requestId = 2;
+    /**
+     * 状态
+     * 对应类型为OTA时的状态：2-已完成，3-失败
+     */
+    required uint32 status = 3;
+    /**
+     * 信息
+     */
+    optional string message = 4;
+    /**
+     * 应答状态码（100:成功;-100:失败;-101:参数缺失;）
+     */
+    optional int32 respCode = 5;
+    
+}

@@ -1,0 +1,15 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean.state";
+option java_outer_classname = "StateOtherbean";
+
+// protoc.exe --java_out=./ state_other.proto
+
+/**
+ * 车辆其他状态
+*/
+message StateOtherMessage {
+    /**
+     * 制动液状态 0xFF：无法得到当前状态 
+     */
+    optional double brake_fluid = 1;
+}

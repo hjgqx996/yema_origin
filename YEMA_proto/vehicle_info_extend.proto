@@ -1,0 +1,45 @@
+syntax = "proto2";
+import "location_offset_info.proto";
+
+/*
+ * 整车扩展信息
+ */
+message VehicleInfoExtendMessage {
+    /*
+     * 续航里程(WORD)
+     * 有效值范围:0～65531(表示0km～6553.1km)，最小计量单元：0.1km
+     * "0xFF,0xFE"表示异常;"0xFF,0xFF"表示无效
+     */
+    optional uint32 rechargeMileage = 1;
+    /*
+     * 车辆方向(WORD)
+     * 有效值范围:0～359(表示0°～359°)，最小计量单元：1°
+     * "0xFF,0xFE"表示异常;"0xFF,0xFF"表示无效
+     */
+    optional uint32 vehicleDirection = 2;
+    /*
+     * 制动踏板位置(BYTE)
+     * 有效值范围:0～100(表示0%～100%)，最小计量单元：1%
+     * "0xFE"表示异常;"0xFF"表示无效
+     */
+    optional uint32 brakePedalPosition = 3;
+    /*
+     * 制动踏板状态有效值(BYTE)
+     * "0xFE"表示异常;"0xFF"表示无效
+     */
+    optional uint32 brakePedalStatusValidity = 4;
+    /*
+     * 制动踏板位置有效性(BYTE)
+     * "0xFE"表示异常;"0xFF"表示无效
+     */
+    optional uint32 brakePedalPositionValidity = 5;
+    /*
+     * 加速踏板位置有效值(BYTE)
+     * "0xFE"表示异常;"0xFF"表示无效
+     */
+    optional uint32 accelerationPedalPositionValidity = 6;
+    /*
+     * 位置偏移信息
+     */
+    optional LocationOffsetInfo locationOffsetInfo = 7;
+}

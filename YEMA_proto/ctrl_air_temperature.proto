@@ -1,0 +1,54 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean";
+option java_outer_classname = "CtrlAirTemperatureBean";
+
+// protoc.exe --java_out=./ ctrl_air_temperature.proto
+
+import "ctrl_common_param_tbox.proto";
+
+/**
+ * 远程空调温度设定消息(请求/应答)
+ * 备注：当查询时只填写common_param参数，tbox返回当前状态
+ */
+message CtrlAirTemperatureMessage {
+    /**
+     * 通用参数
+     */
+    optional CtrlCommonParamTbox common_param = 1;
+    /**
+     * 控制信息
+     */
+    optional AirTemperatureCtrlInfo air_temperature_ctrl_info = 2;
+    /**
+     * 状态信息
+     */
+    optional AirTemperatureStateInfo air_temperature_state_info = 3;
+}
+
+/**
+ * 空调温度控制信息(结果成功的场合，应答数据只包含实际温度)
+ */
+message AirTemperatureCtrlInfo {
+   /**
+    * 设定温度(一个单位代表0.1度，0xFFFF:无效)
+    */
+    optional int32 set_temperature = 1;
+   /**
+    * 温度设定结果(0-成功; 1-失败)
+    */
+    optional int32 result = 2;
+}
+
+/**
+ * 空调温度状态信息
+ */
+message AirTemperatureStateInfo{
+   /**
+    * 设定温度(一个单位代表0.1度，0xFFFF:无效)
+    */
+    optional int32 set_temperature = 1;
+   /**
+    * 车内实际温度(一个单位代表0.1度，0xFFFF:无效)
+    */
+    optional int32 real_temperature = 2;
+}

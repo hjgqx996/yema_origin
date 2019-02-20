@@ -1,0 +1,35 @@
+syntax = "proto2";
+/**
+ * 位置偏移信息
+ */
+message LocationOffsetInfo {
+    /**
+     * 位置偏移数据列表
+     */
+    repeated LocationOffsetData locationOffsetData = 1;
+}
+
+message LocationOffsetData {
+    /*
+     * 代表这个位置与上一个经度位置差
+     * 精确到百万分之一度（同车辆位置数据格式）
+     */
+    required int32 offsetLon = 1; 
+    /*
+     * 代表这个位置与上一个纬度位置差
+     * 精确到百万分之一度（同车辆位置数据格式）
+     */
+    required int32 offsetLat = 2; 
+    /*
+     * 代表这个方向与上一个位置方向的差
+     * 最小计量单元：1°
+     */
+    required int32 offsetDir = 3; 
+    /*
+     * 代表这个速度与上一个位置速度的差
+     * 最小计量单位:0.1km/h(同整车数据中车速格式)
+     */
+    required int32 offsetSpeed =4; 
+
+    extensions 32 to 127;
+}

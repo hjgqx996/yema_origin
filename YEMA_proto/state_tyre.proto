@@ -1,0 +1,43 @@
+syntax = "proto2";
+option java_package = "com.mx.server.remote.v2.bean.state";
+option java_outer_classname = "StateTyreBean";
+
+// protoc.exe --java_out=./ state_tyre.proto
+
+/**
+ * 车胎状态
+*/
+message StateTyreMessage {
+    /**
+     * 左前车胎压力 0xFFFF：无法得到当前状态 
+     */
+    optional double tire_pressure_left_before = 1;
+    /**
+     * 右前车胎压力 0xFFFF：无法得到当前状态 
+     */
+    optional double tire_pressure_right_before = 2;
+    /**
+     * 右后车胎压力 0xFFFF：无法得到当前状态 
+     */
+    optional double tire_pressure_right_back = 3;
+    /**
+     * 左后车胎压力 0xFFFF：无法得到当前状态 
+     */
+    optional double tire_pressure_left_back = 4;
+   /**
+     * 左前车胎温度 0xFF：无法得到当前状态 
+     */
+    optional double tire_temperature_left_before=5;
+  /**
+     * 右前车胎温度 0xFF：无法得到当前状态 
+     */
+    optional double tire_temperature_right_before=6;
+  /**
+     * 右前车胎温度 0xFF：无法得到当前状态 
+     */
+    optional double tire_temperature_right_back=7;
+  /**
+     * 左后车胎温度 0xFF：无法得到当前状态 
+     */
+    optional double tire_temperature_left_back=8;
+}
