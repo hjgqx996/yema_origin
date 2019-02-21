@@ -151,6 +151,7 @@ void queue_init()
 
 void childProcessFunc()
 {
+	system(" killall -9 mcm_ril_service mcm_data_srv MCM_MOBILEAP_ConnectionManager ");
 	Log(__FUNCTION__,"child process init\n");
 	if (access(FIFO_NAME, F_OK) == -1)	
 	{  
@@ -163,7 +164,6 @@ void childProcessFunc()
 			exit(0);
 		}  
 	}  
-	
 	int pipe_fd;
 	pipe_fd = open(FIFO_NAME, O_WRONLY);
 	char str[10] = {0};
@@ -185,8 +185,6 @@ void childProcessFunc()
 	system("find /media/sdcard/ -mtime +2 -name \'*.log\' -exec rm {} \\;");
 
 	Log(__FUNCTION__,"tbox version: %s %s %s",APP_VERSION,__DATE__,__TIME__);
-
-
 	get_param();
 	init_AT();
       
@@ -216,13 +214,12 @@ void childProcessFunc()
 	{
 		Log(__FUNCTION__,"Network thread create failed!\n");
 	}
-	/*
+	
 	ret = pthread_create(&HU_thread_t,NULL,HU_thread,NULL);
 	if(ret != 0)
 	{
 		Log(__FUNCTION__,"HU thread create failed!\n");
 	}
-	*/
 	while(1)
 	{
 		sleep(20); //20S  send heart to father thread

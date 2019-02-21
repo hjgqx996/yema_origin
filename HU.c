@@ -1050,9 +1050,12 @@ void* HU_thread(void* HU_param)
 			
 			setsockopt(s_fd,SOL_SOCKET,SO_LINGER,&so_linger,sizeof(so_linger));
 			setsockopt (s_fd,SOL_SOCKET,SO_REUSEADDR,&on,sizeof(on)) ;
-			bind(s_fd,(struct sockaddr *)&s_addr,s_len);
-			listen(s_fd,5);
+			int ret1=0;
+			ret1=bind(s_fd,(struct sockaddr *)&s_addr,s_len);
+			printf("bind ecm %d\n",ret1);
 			
+			ret1=listen(s_fd,5);
+			printf("listen ecm %d\n",ret1);
 	        if ((c_fd=accept(s_fd, (struct sockaddr*)&c_addr,(socklen_t *)&c_len)) == -1) {
 	            //Log(__FUNCTION__,"Socket accept fail, errno=%d\n", errno);
 	            printf("Socket accept fail \n");
