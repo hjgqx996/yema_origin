@@ -167,6 +167,7 @@ bool ssl_init(int fd)
     if(ret != 1){  
         int err = ERR_get_error();  
         Log(__FUNCTION__,"Connect error code: %d ,string: %s\n",err,ERR_error_string(err,NULL));  
+		printf("%s\n",SSL_state_string_long(ssl));
         return false;
     }  
     //打印服务端证书内容

@@ -1808,6 +1808,7 @@ int ssl_read_long(SSL *ssl,unsigned char *recvbuf)
 
 int login(int clt_sock,short serial_num)
 {
+  
 	unsigned char data[512] = {0};
 	unsigned char rcv_buf[512] = {0};
 	int offset;
@@ -1824,6 +1825,9 @@ int login(int clt_sock,short serial_num)
 	if(param.decrypt == 1)
 	{
 		//recvd = SSL_read(ssl,rcv_buf,1024);  
+		int pending;
+		pending=SSL_pending(ssl);
+		printf("the available data is %d\n",pending);
 		recvd = ssl_read_long(ssl, rcv_buf);
 	}
 	else
@@ -2040,7 +2044,7 @@ void* TCP_Program(void* tcp_param)
 			case connect_step:
 				if(connect_to_server(&sock_cli,(char*)tcp_param))
 				{
-					struct timeval timeout={2,0};//2s
+					struct timeval timeout={10,0};//2s
 					setsockopt(sock_cli,SOL_SOCKET,SO_RCVTIMEO,(const char*)&timeout,sizeof(timeout));
 					setsockopt(sock_cli,SOL_SOCKET,SO_SNDTIMEO,(const char*)&timeout,sizeof(timeout));	
 					if(param.decrypt == 1)
